@@ -22,11 +22,17 @@ Sub AttachLabelsToPoints()
 
     'Attach a label to each data point in the chart.
     For Counter = 1 To Range(xVals).Cells.Count
-      ActiveChart.SeriesCollection(Series).Points(Counter).HasDataLabel = _
-        True
-      'See the 1st row of the sheet above the x values in the sheet.
-      ActiveChart.SeriesCollection(Series).Points(Counter).DataLabel.Text = _
-        Cells(1, Range(xVals).Cells(Counter).Column).Value
+      If Counter = 1 Or Counter = Range(xVals).Cells.Count Or Counter = (1+Range(xVals).Cells.Count)/2 _
+        Then
+        ActiveChart.SeriesCollection(Series).Points(Counter).HasDataLabel = _
+          True
+        'See the 1st row of the sheet above the x values in the sheet.
+        ActiveChart.SeriesCollection(Series).Points(Counter).DataLabel.Text = _
+          Cells(1, Range(xVals).Cells(Counter).Column).Value
+        Else
+          ActiveChart.SeriesCollection(Series).Points(Counter).HasDataLabel = _
+            False
+        End If
         
     Next Counter
   Next Series
